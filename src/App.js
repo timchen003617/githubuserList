@@ -50,7 +50,7 @@ let App = props => {
               <div>
                 <h2>name: {user.login}</h2>
                 <h2>{`site_admin: ${user.site_admin}`}</h2>
-                <p className="numberofitems">{index + 1}</p>
+                <p className="numberofitems">{user.id}</p>
               </div>
             </div>
           ))
