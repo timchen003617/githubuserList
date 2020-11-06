@@ -48,9 +48,9 @@ let App = props => {
             <div key={user.id} className="App-item">
               <img className="App-avatar" src={`${user.avatar_url}`} />
               <div>
-                <h2>name: {user.login}</h2>
+                <h2>{user.login}</h2>
                 <h2>{`site_admin: ${user.site_admin}`}</h2>
-                <p className="numberofitems">{user.id}</p>
+                <p className="numberofitems">{index + 1}</p>
               </div>
             </div>
           ))
