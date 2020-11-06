@@ -1,67 +1,48 @@
 import './App.css'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchUsers } from './actions'
 
-const App = () => {
+let App = props => {
 
-  const [users, setUsers] = useState([
-    {
-      "login": "mojombo",
-      "id": 1,
-      "node_id": "MDQ6VXNlcjE=",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/1?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/mojombo",
-      "html_url": "https://github.com/mojombo",
-      "followers_url": "https://api.github.com/users/mojombo/followers",
-      "following_url": "https://api.github.com/users/mojombo/following{/other_user}",
-      "gists_url": "https://api.github.com/users/mojombo/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/mojombo/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/mojombo/subscriptions",
-      "organizations_url": "https://api.github.com/users/mojombo/orgs",
-      "repos_url": "https://api.github.com/users/mojombo/repos",
-      "events_url": "https://api.github.com/users/mojombo/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/mojombo/received_events",
-      "type": "User",
-      "site_admin": false
-      },
-      {
-      "login": "defunkt",
-      "id": 2,
-      "node_id": "MDQ6VXNlcjI=",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/defunkt",
-      "html_url": "https://github.com/defunkt",
-      "followers_url": "https://api.github.com/users/defunkt/followers",
-      "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-      "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-      "organizations_url": "https://api.github.com/users/defunkt/orgs",
-      "repos_url": "https://api.github.com/users/defunkt/repos",
-      "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/defunkt/received_events",
-      "type": "User",
-      "site_admin": false
-      }
-  ])
+  const { fetchUsers, users } = props
+
+  useEffect(() => {
+    fetchUsers({
+      per_page: 100
+    })
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        {
-          users.map(user => (
-            <div key={user.id} className="App-item">
-              <img className="App-avatar" src={`${user.avatar_url}`} />
-              <div>
-               <h2>name: {user.login}</h2>
-               <h2>{`site_admin: ${user.site_admin}`}</h2>
+      <div className="App">
+        <div className="App-body">
+          {
+            users.map((user, index) => (
+              <div key={user.id} className="App-item">
+                <img className="App-avatar" src={`${user.avatar_url}`} />
+                <div>
+                <h2>name: {user.login}</h2>
+                <h2>{`site_admin: ${user.site_admin}`}</h2>
+                <p className="numberofitems">{index + 1}</p>
+                </div>
               </div>
-            </div>
-          ))
-        }
-      </header>
-    </div>
+            ))
+          }
+        </div>
+      </div>
   );
 }
+
+const mapStateToProps = (state, props) => {
+  return {
+    users: state.userList && state.userList.users
+  }
+}
+
+const mapDispatchToProps = {
+  fetchUsers
+}
+
+App = connect(mapStateToProps, mapDispatchToProps)(App)
 
 export default App;
