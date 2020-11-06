@@ -28,7 +28,7 @@ let handleNextPage = (currentPage, lastPage, setCurrentPage) => () => {
 let App = props => {
   const [currentPage, setCurrentPage] = useState(1)
   const [perpage, setPerpage] = useState(100)
-  const [rowsperpage, setRowsPerpage] = useState(5)
+  const [rowsPerpage, setRowsPerpage] = useState(5)
   const { fetchUsers, users } = props
 
   useEffect(() => {
@@ -41,8 +41,8 @@ let App = props => {
     <div className="App">
       <div className="App-body">
         {
-          (rowsperpage > 0
-            ? users.slice((currentPage - 1) * rowsperpage, (currentPage - 1) * rowsperpage + rowsperpage)
+          (rowsPerpage > 0
+            ? users.slice((currentPage - 1) * rowsPerpage, (currentPage - 1) * rowsPerpage + rowsPerpage)
             : users
           ).map((user, index) => (
             <div key={user.id} className="App-item">
@@ -55,7 +55,7 @@ let App = props => {
             </div>
           ))
         }
-        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} perpage={rowsperpage} handleJumpPage={handleJumpPage}
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} perpage={rowsPerpage} handleJumpPage={handleJumpPage}
           handlePrevPage={handlePrevPage} handleNextPage={handleNextPage} dataLength={users && users.length}
         />
       </div>
