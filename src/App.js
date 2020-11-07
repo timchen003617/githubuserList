@@ -27,12 +27,13 @@ let handleNextPage = (currentPage, lastPage, setCurrentPage) => () => {
 
 let App = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [perpage, setPerpage] = useState(100);
+  const defaultPerpage = 100;
+  const rowsPerpage = 5;
   const { fetchUsers, users, getUsersIsLoading, fetchOneUser, oneuser } = props;
 
   useEffect(() => {
     fetchUsers({
-      per_page: perpage,
+      per_page: defaultPerpage,
     });
   }, []);
 
@@ -42,7 +43,13 @@ let App = (props) => {
         {getUsersIsLoading ? (
           <CircularProgress />
         ) : (
-          users.map((user, index) => (
+          (rowsPerpage > 0
+            ? users.slice(
+                (currentPage - 1) * rowsPerpage,
+                (currentPage - 1) * rowsPerpage + rowsPerpage
+              )
+            : users
+          ).map((user, index) => (
             <div key={user.id} className="App-item">
               <img className="App-avatar" src={`${user.avatar_url}`} />
               <div>
@@ -58,6 +65,7 @@ let App = (props) => {
                 <div>
                   {oneuser && oneuser.node_id === user.node_id && (
                     <div>
+                      <h2>Detail:</h2>
                       <p>Login:{oneuser.login}</p>
                       <p>Name:{oneuser.name}</p>
                       <p>Bio:{oneuser.bio}</p>
@@ -74,12 +82,11 @@ let App = (props) => {
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            perpage={perpage}
+            perpage={rowsPerpage}
             handleJumpPage={handleJumpPage}
             handlePrevPage={handlePrevPage}
             handleNextPage={handleNextPage}
             dataLength={users && users.length}
-            actionCall={fetchUsers}
           />
         </div>
       </div>
