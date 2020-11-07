@@ -1,5 +1,6 @@
-# introduction components
-The App.js is a main component, The Pagination component is used to changing current page Number.
+# Components of an Introduction
+The App.js is a main component.
+The Pagination component is used to changing current page Number.
 
 # getUsers data flow
 App component => componentDidMount => fetchUsers action in => getUsersReducers
