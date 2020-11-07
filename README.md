@@ -1,3 +1,21 @@
+# introduction components
+The App.js is a main component, The Pagination component is used to changing current page Number.
+
+# getUsers data flow
+App component => componentDidMount => fetchUsers action in => getUsersReducers
+=> epics (listen FETCH_USERS action type => getUserList => call api by ajax => fetchUsersSucceed => fetchUsersEnd => action out) => redux store
+=> The App component connect redux state to App props
+
+
+# getOneUser detail data flow
+App component => onClick detail href => fetchOneUser action in => getOneUserReducers
+=> epics (listen FETCH_ONE_USER action type => getOneUser => call api by ajax => fetchOneUserSucceed => fetchOneUserEnd => action out) => redux store
+=> The App component connect redux state to App props
+
+# github api reference
+https://docs.github.com/en/free-pro-team@latest/rest/reference/users#get-a-user
+https://docs.github.com/en/free-pro-team@latest/rest/reference/users#list-users 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
