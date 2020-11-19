@@ -1,4 +1,4 @@
-import { merge, of } from "rxjs";
+import { of } from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { combineEpics } from "redux-observable";
 import { mergeMap } from "rxjs/operators";

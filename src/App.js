@@ -35,7 +35,7 @@ let App = (props) => {
     fetchUsers({
       per_page: defaultPerpage,
     });
-  }, []);
+  }, [fetchUsers]);
 
   return (
     <div className="App">
@@ -51,17 +51,16 @@ let App = (props) => {
             : users
           ).map((user, index) => (
             <div key={user.id} className="App-item">
-              <img className="App-avatar" src={`${user.avatar_url}`} />
+              <img alt="avatar" className="App-avatar" src={`${user.avatar_url}`} />
               <div>
                 <h2>{user.login}</h2>
                 <h2>{`site_admin: ${user.site_admin}`}</h2>
                 <p className="numberofitems">{index + 1}</p>
-                <a
-                  href="#"
+                <button
                   onClick={() => fetchOneUser({ username: user.login })}
                 >
                   detail
-                </a>
+                </button>
                 <div>
                   {oneuser && oneuser.node_id === user.node_id && (
                     <div>
